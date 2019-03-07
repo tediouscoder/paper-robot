@@ -1,0 +1,2 @@
+export WEBHOOK_SECRET=xxxx
+export GITHUB_TOKEN=xxxx
