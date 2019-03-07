@@ -55,7 +55,7 @@ func main() {
 		return
 	})
 
-	err = http.ListenAndServe(":3000", nil)
+	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		log.Error("Server server failed", "error", err)
 	}
