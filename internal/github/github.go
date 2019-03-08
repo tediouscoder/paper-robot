@@ -33,6 +33,21 @@ func RemoveIssueLabel(ctx context.Context, label string) (err error) {
 	return
 }
 
+// CreateIssueComment will create an issue comment for current issue.
+func CreateIssueComment(ctx context.Context, comment string) (err error) {
+	em := utils.FromEventMetadataContext(ctx)
+
+	_, _, err = client.Issues.CreateComment(
+		ctx, em.Owner, em.Repo, int(em.IssueNumber),
+		&github.IssueComment{
+			Body: github.String(comment),
+		})
+	if err != nil {
+		return
+	}
+	return
+}
+
 // GetFileContent will get a file's content.
 func GetFileContent(ctx context.Context, file string) (sha, data string, err error) {
 	em := utils.FromEventMetadataContext(ctx)
