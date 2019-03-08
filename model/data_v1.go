@@ -23,7 +23,9 @@ func newV1Data(c string) (d *v1Data, err error) {
 
 	// We should always set v1Data's version to 1.
 	d.Version = 1
-	d.Papers = make(map[string]*Paper)
+	if d.Papers == nil {
+		d.Papers = make(map[string]*Paper)
+	}
 	return
 }
 

@@ -15,7 +15,7 @@ var content = `{
       "Large-scale cluster management at Google with Borg":{
          "url":"https://pdos.csail.mit.edu/6.824/papers/borg.pdf",
          "year":2015,
-         "terms":["cluster", "container"],
+         "terms":["cluster", "container", ""],
          "source":"EuroSys"
       }
    }
