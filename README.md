@@ -12,6 +12,18 @@ paper-robot is a handwritten robot (**NOT AN AI**) for [papers](https://github.c
   - Request Change
 - Generate human readable README.md
 
+## Roadmap
+
+### v1
+
+- Support `request/update` and `request/remove`
+- Support comment issue while something wrong happened
+
+### v2
+
+- Generate markdowns like `by-year` and `by-term`
+- Build a static site
+
 ## Contributing
 
 paper-robot [master](https://github.com/tediouscoder/paper-robot/tree/master) branch is used as production release which serves [papers](https://github.com/tediouscoder/papers), and [develop](https://github.com/tediouscoder/paper-robot/tree/develop) branch is used as develop release which serves [papers-dev](https://github.com/tediouscoder/papers-dev).
