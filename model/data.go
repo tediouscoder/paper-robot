@@ -53,7 +53,7 @@ func ParseData(content string) (s Storer, err error) {
 
 // FormatData will format data into json.
 func FormatData(d Storer) (content string, err error) {
-	bs, err := json.Marshal(d)
+	bs, err := json.MarshalIndent(d, "", "\t")
 	if err != nil {
 		log.Error("JSON marshal failed", "data", d, "error", err)
 		return "", err
