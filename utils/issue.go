@@ -52,7 +52,11 @@ func ParsePaper(content string) (id *model.Paper, err error) {
 	}
 
 	id.Source = m["source"]
-	id.Terms = strings.Split(strings.ToLower(m["terms"]), ",")
+
+	terms := strings.Split(strings.ToLower(m["terms"]), ",")
+	for _, v := range terms {
+		id.Terms = append(id.Terms, strings.TrimSpace(v))
+	}
 
 	if m["year"] != "" {
 		n, err := strconv.ParseInt(m["year"], 10, 64)
@@ -60,14 +64,6 @@ func ParsePaper(content string) (id *model.Paper, err error) {
 			return nil, err
 		}
 		id.Year = int(n)
-	}
-
-	if m["month"] != "" {
-		n, err := strconv.ParseInt(m["month"], 10, 64)
-		if err != nil {
-			return nil, err
-		}
-		id.Month = int(n)
 	}
 	return
 }

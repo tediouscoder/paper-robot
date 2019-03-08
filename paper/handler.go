@@ -3,6 +3,7 @@ package paper
 import (
 	"bytes"
 	"context"
+	"strings"
 
 	"text/template"
 
@@ -91,7 +92,10 @@ func executeAdd(ctx context.Context) (err error) {
 		return
 	}
 
-	data.Papers = append(data.Papers, paper)
+	err = data.AddPaper(paper)
+	if err != nil {
+		return
+	}
 
 	dataContent, err = model.FormatData(data)
 	if err != nil {
@@ -108,8 +112,13 @@ func executeAdd(ctx context.Context) (err error) {
 		return
 	}
 
+	funcMap := template.FuncMap{
+		// The name "title" is what the function will be called in the template text.
+		"title": strings.Title,
+	}
+
 	var b bytes.Buffer
-	t := template.Must(template.New("readme").Parse(readme))
+	t := template.Must(template.New("readme").Funcs(funcMap).Parse(readme))
 	err = t.Execute(&b, data)
 	if err != nil {
 		return

@@ -6,4 +6,5 @@ import "errors"
 var (
 	ErrRequiredFiledMissing = errors.New("required filed missing")
 	ErrInvalidPaperURL      = errors.New("invalid paper url")
+	ErrNotImplemented       = errors.New("not implemented")
 )
