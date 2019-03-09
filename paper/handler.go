@@ -94,18 +94,9 @@ func executeAdd(ctx context.Context) (err error) {
 		return
 	}
 
-	// Generate README.
-	sha, _, err = ig.GetFileContent(ctx, constants.ReadmeFilePath)
-	if err != nil {
-		return
-	}
-
-	content, err := GenerateREADME(data)
-	if err != nil {
-		return
-	}
-
-	err = ig.UpdateFileContent(ctx, constants.ReadmeFilePath, sha, content)
+	err = ig.UpdateFile(ctx, constants.ReadmeFilePath, func(_ string) (s string, e error) {
+		return GenerateREADME(data)
+	})
 	if err != nil {
 		return
 	}
