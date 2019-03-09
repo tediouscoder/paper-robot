@@ -51,6 +51,11 @@ func Handler(ctx context.Context, payload *github.IssuesPayload) (err error) {
 }
 
 func setStateWaitReview(ctx context.Context) (err error) {
+	err = ig.CreateIssueComment(ctx, "Please waiting for review.")
+	if err != nil {
+		return
+	}
+
 	return ig.AddIssueLabel(ctx, string(constants.StateWaitReview))
 }
 
