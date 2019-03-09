@@ -73,12 +73,7 @@ func executeAdd(ctx context.Context) (err error) {
 	}
 
 	// Parse issue
-	issueContent, err := ig.GetIssueContent(ctx)
-	if err != nil {
-		return
-	}
-
-	paper, err := utils.ParsePaper(issueContent)
+	paper, err := model.ParsePaper(ctx)
 	if err != nil {
 		return
 	}
