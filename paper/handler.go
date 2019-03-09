@@ -1,11 +1,7 @@
 package paper
 
 import (
-	"bytes"
 	"context"
-	"strings"
-
-	"text/template"
 
 	"gopkg.in/go-playground/webhooks.v5/github"
 
@@ -117,18 +113,12 @@ func executeAdd(ctx context.Context) (err error) {
 		return
 	}
 
-	funcMap := template.FuncMap{
-		// The name "title" is what the function will be called in the template text.
-		"title": strings.Title,
-	}
-
-	var b bytes.Buffer
-	t := template.Must(template.New("readme").Funcs(funcMap).Parse(readme))
-	err = t.Execute(&b, data)
+	content, err := GenerateREADME(data)
 	if err != nil {
 		return
 	}
-	err = ig.UpdateFileContent(ctx, constants.ReadmeFilePath, sha, b.String())
+
+	err = ig.UpdateFileContent(ctx, constants.ReadmeFilePath, sha, content)
 	if err != nil {
 		return
 	}

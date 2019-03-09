@@ -2,12 +2,13 @@ package utils
 
 import (
 	"bufio"
-	"github.com/tediouscoder/paper-robot/constants"
-	"github.com/tediouscoder/paper-robot/internal/log"
-	"github.com/tediouscoder/paper-robot/model"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/tediouscoder/paper-robot/constants"
+	"github.com/tediouscoder/paper-robot/internal/log"
+	"github.com/tediouscoder/paper-robot/model"
 )
 
 // ParsePaper will parse a paper.
