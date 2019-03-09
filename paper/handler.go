@@ -79,11 +79,7 @@ func executeAdd(ctx context.Context) (err error) {
 	}
 
 	// Update data.json
-	sha, dataContent, err := ig.GetFileContent(ctx, constants.DataFilePath)
-	if err != nil {
-		return
-	}
-	data, err := model.ParseData(dataContent)
+	sha, data, err := model.GetData(ctx)
 	if err != nil {
 		return
 	}
@@ -93,11 +89,7 @@ func executeAdd(ctx context.Context) (err error) {
 		return
 	}
 
-	dataContent, err = model.FormatData(data)
-	if err != nil {
-		return
-	}
-	err = ig.UpdateFileContent(ctx, constants.DataFilePath, sha, dataContent)
+	err = model.PutData(ctx, sha, data)
 	if err != nil {
 		return
 	}
