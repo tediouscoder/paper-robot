@@ -6,6 +6,8 @@ paper-robot is a handwritten robot (**NOT AN AI**) for [papers](https://github.c
 
 - Handle user request
   - Add new paper
+  - Update exist paper
+  - Remove paper
 - Handle review operations
   - Approved
   - Reject
