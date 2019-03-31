@@ -25,14 +25,14 @@ type Paper struct {
 }
 
 // ParsePaper will parse a paper form current issue's content.
-func ParsePaper(ctx context.Context) (p *Paper, err error) {
+func ParsePaper(ctx context.Context, titleOnly bool) (p *Paper, err error) {
 	// Parse issue
 	issueContent, err := ig.GetIssueContent(ctx)
 	if err != nil {
 		return
 	}
 
-	p, err = parsePaperFromIssueContent(issueContent)
+	p, err = parsePaperFromIssueContent(issueContent, titleOnly)
 	if err != nil {
 		return
 	}
@@ -40,7 +40,7 @@ func ParsePaper(ctx context.Context) (p *Paper, err error) {
 }
 
 // parsePaperFromIssueContent will parse content a paper.
-func parsePaperFromIssueContent(content string) (id *Paper, err error) {
+func parsePaperFromIssueContent(content string, titleOnly bool) (id *Paper, err error) {
 	s := bufio.NewScanner(strings.NewReader(content))
 
 	m := make(map[string]string)
@@ -64,6 +64,11 @@ func parsePaperFromIssueContent(content string) (id *Paper, err error) {
 	id.Title = m["title"]
 	if id.Title == "" {
 		return nil, constants.ErrRequiredFiledMissing
+	}
+
+	// Return directly because we only need title.
+	if titleOnly {
+		return
 	}
 
 	id.URL = m["url"]
