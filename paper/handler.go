@@ -114,6 +114,50 @@ func executeAdd(ctx context.Context) (err error) {
 }
 
 func executeUpdate(ctx context.Context) (err error) {
+	// Remove wait review before execute.
+	err = ig.RemoveIssueLabel(ctx, string(constants.StateWaitReview))
+	if err != nil {
+		return
+	}
+
+	// Parse issue
+	paper, err := model.ParsePaper(ctx)
+	if err != nil {
+		return
+	}
+
+	// Update data.json
+	sha, data, err := model.GetData(ctx)
+	if err != nil {
+		return
+	}
+
+	err = data.UpdatePaper(paper)
+	if err != nil {
+		return
+	}
+
+	err = model.PutData(ctx, sha, data)
+	if err != nil {
+		return
+	}
+
+	err = ig.UpdateFile(ctx, constants.ReadmeFilePath, func(_ string) (s string, e error) {
+		return GenerateREADME(data)
+	})
+	if err != nil {
+		return
+	}
+
+	err = ig.AddIssueLabel(ctx, string(constants.StateFinished))
+	if err != nil {
+		return
+	}
+
+	err = ig.CloseIssue(ctx)
+	if err != nil {
+		return
+	}
 	return
 }
 

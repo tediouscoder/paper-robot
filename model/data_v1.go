@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 
+	"github.com/tediouscoder/paper-robot/constants"
 	"github.com/tediouscoder/paper-robot/internal/log"
 )
 
@@ -40,6 +41,11 @@ func (d *v1Data) AddPaper(p *Paper) error {
 
 // UpdatePaper implements Storer.UpdatePaper
 func (d *v1Data) UpdatePaper(p *Paper) error {
+	_, ok := d.Papers[p.Title]
+	if !ok {
+		return constants.ErrPaperNotExist
+	}
+
 	return d.AddPaper(p)
 }
 
