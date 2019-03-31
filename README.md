@@ -14,14 +14,12 @@ paper-robot is a handwritten robot (**NOT AN AI**) for [papers](https://github.c
 
 ## Roadmap
 
-### v1
-
-- Support `request/update` and `request/remove`
-- Support comment issue while something wrong happened
-
 ### v2
 
 - Generate markdowns like `by-year` and `by-term`
+
+### v3
+
 - Build a static site
 
 ## Contributing
