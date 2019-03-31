@@ -44,6 +44,11 @@ func (d *v0Data) RemovePaper(p *Paper) error {
 	return constants.ErrNotImplemented
 }
 
+// FilterPaper implements Storer.FilterPaper
+func (d *v0Data) FilterPaper(_ Filter) ([]*Paper, error) {
+	return nil, constants.ErrNotImplemented
+}
+
 // Migrate implements Migrate.Migrate
 func (d *v0Data) Migrate() (s Storer, err error) {
 	nd, err := newV1Data("{}")

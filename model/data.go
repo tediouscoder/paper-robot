@@ -16,6 +16,7 @@ type Storer interface {
 	AddPaper(*Paper) error
 	UpdatePaper(*Paper) error
 	RemovePaper(*Paper) error
+	FilterPaper(Filter) ([]*Paper, error)
 
 	Migrate() (Storer, error)
 }

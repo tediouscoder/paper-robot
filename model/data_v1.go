@@ -56,6 +56,21 @@ func (d *v1Data) RemovePaper(p *Paper) error {
 	return nil
 }
 
+// FilterPaper implements Storer.FilterPaper
+func (d *v1Data) FilterPaper(f Filter) (ans []*Paper, err error) {
+	ans = make([]*Paper, 0)
+	for k, v := range d.Papers {
+		if !f.Satisfy(v) {
+			continue
+		}
+
+		p := v
+		p.Title = k
+		ans = append(ans, p)
+	}
+	return
+}
+
 // Migrate implements Migrate.Migrate
 func (d *v1Data) Migrate() (Storer, error) {
 	return d, nil
